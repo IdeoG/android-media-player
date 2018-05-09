@@ -10,7 +10,7 @@
         android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#ff00ff" />
+        android:background="#ffd54f" />
 
     <Button
         android:id="@+id/arrow_down"
@@ -26,11 +26,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/rajdhani_medium"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/amita"
         android:text="@string/music_fragment"
+        android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="24sp"
+        android:textStyle="bold"
+        android:typeface="serif"
         app:layout_constraintStart_toEndOf="@+id/arrow_down"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,6 +54,7 @@
         android:layout_marginTop="16dp"
         android:max="100"
         android:progress="0"
+        android:theme="@style/SeekBarColored"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
@@ -63,12 +67,12 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:selectableItemBackground"
-        app:fill_color="#e1e1e1"
+        app:fill_color="#ffff81"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar"
-        app:pause_bg="#00a2ed"
-        app:play_bg="#001eff" />
+        app:pause_bg="#ff9800"
+        app:play_bg="#ff9800" />
 
     <Button
         android:id="@+id/button"
@@ -90,6 +94,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toEndOf="@+id/play_pause_view"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <TextView
+        android:id="@+id/player_current_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="00:00"
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <TextView
+        android:id="@+id/player_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="00:00"
+        app:layout_constraintStart_toEndOf="@+id/button2"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
 </android.support.constraint.ConstraintLayout>

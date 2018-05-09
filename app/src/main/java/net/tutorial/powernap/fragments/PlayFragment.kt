@@ -2,36 +2,39 @@ package net.tutorial.powernap.fragments
 
 
 import android.content.Context
-import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
+import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import net.tutorial.powernap.R
 import android.widget.Button
+import android.widget.SeekBar
+import android.widget.TextView
 import com.ohoussein.playpause.PlayPauseView
-import net.tutorial.powernap.services.MusicPlayerService
+import net.tutorial.powernap.R
 import net.tutorial.powernap.interfaces.FragmentListener
+import java.util.*
 
 
 class PlayFragment : Fragment() {
 
     private val TAG = "PlayFragment";
-    private lateinit var callbackFragment: FragmentListener
-    private lateinit var service: Intent
-    private lateinit var player: MediaPlayer
+    var player = MediaPlayer()
+    var seekBarUpdateHandler  = Handler()
+
+    lateinit var updateSeekBar: Runnable;
+    lateinit var callbackFragment: FragmentListener
+    lateinit var seekBar: SeekBar
+    lateinit var playerDuration: TextView
+    lateinit var playerCurrentPosition: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        Log.i(TAG, "onCreateView: ");
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_play, container, false)
-        view.findViewById<Button>(R.id.arrow_down)
-                .setOnClickListener({callbackFragment.fragmentCallback("PlayFragment Button Clicked")})
-
         val args = arguments
         val position = args?.getInt("position")
 
@@ -41,28 +44,8 @@ class PlayFragment : Fragment() {
         }
         player.start()
         player.pause()
-        Log.i(TAG, "onCreateView: player.duration = ${player.duration} ");
 
-        Log.i(TAG, "onCreateView: position = $position");
-
-        val playPauseView = view.findViewById<PlayPauseView>(R.id.play_pause_view)
-        playPauseView.setOnClickListener({
-            if (playPauseView.isPlay) {
-
-                player.seekTo(player.currentPosition)
-                player.start()
-                Log.i(TAG, "onCreateView: player.isPlaying = ${player.isPlaying}, " +
-                        "player.currentPosition = ${player.currentPosition}");
-                player.start()
-            } else {
-                player.pause()
-            }
-            playPauseView.toggle()
-        })
-
-        service = Intent(activity, MusicPlayerService::class.java)
-        activity?.startService(service)
-
+        initLocalViews(view)
         return view
     }
 
@@ -77,5 +60,56 @@ class PlayFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         Log.i(TAG, "onDestroy: ");
+        player.stop()
+    }
+
+    private fun initLocalViews(view: View) {
+        seekBar = view.findViewById(R.id.seekBar)
+        playerDuration = view.findViewById(R.id.player_duration)
+        playerCurrentPosition = view.findViewById(R.id.player_current_time)
+
+        val arrawDown = view.findViewById<Button>(R.id.arrow_down)
+        val playPauseView = view.findViewById<PlayPauseView>(R.id.play_pause_view)
+
+
+        arrawDown.setOnClickListener({callbackFragment.fragmentCallback("PlayFragment Button Clicked")})
+        playPauseView.setOnClickListener({
+            if (playPauseView.isPlay) {
+                seekBarUpdateHandler.postDelayed(updateSeekBar, 0);
+                player.seekTo(player.currentPosition)
+                player.start()
+            } else {
+                seekBarUpdateHandler.removeCallbacks(updateSeekBar)
+                player.pause()
+            }
+            playPauseView.toggle()
+        })
+        seekBar.max = player.duration
+        seekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    player.seekTo(progress)
+                }
+            }
+
+        })
+        updateSeekBar = Runnable {
+            val cal = Calendar.getInstance(Locale.ENGLISH)
+            cal.setTimeInMillis(player.currentPosition.toLong())
+            playerCurrentPosition.text = DateFormat.format("mm:ss", cal).toString()
+
+            seekBar.setProgress(player.currentPosition)
+            seekBarUpdateHandler.postDelayed(updateSeekBar, 50)
+        }
+
+        val cal = Calendar.getInstance(Locale.ENGLISH)
+        cal.setTimeInMillis(player.duration.toLong())
+        playerDuration.text = DateFormat.format("mm:ss", cal).toString()
     }
 }

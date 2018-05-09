@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SeekBarColored"
+        parent="Widget.AppCompat.SeekBar">
+        <item name="colorAccent">#ff9800</item>
+    </style>
+
 </resources>
