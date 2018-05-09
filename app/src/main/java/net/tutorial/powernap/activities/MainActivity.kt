@@ -1,7 +1,6 @@
 package net.tutorial.powernap.activities
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import net.tutorial.powernap.R
 import net.tutorial.powernap.fragments.ListFragment
