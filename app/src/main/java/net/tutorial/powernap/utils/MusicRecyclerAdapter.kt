@@ -10,8 +10,12 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_music.*
 
 
-class MusicRecyclerAdapter(private val tracks: ArrayList<Track>,
-                           private val vhListener: ViewHolderListener): RecyclerView.Adapter<ViewHolder>() {
+class MusicRecyclerAdapter(
+        private val tracks: ArrayList<Track>,
+
+        private val vhListener: ViewHolderListener
+) : RecyclerView.Adapter<ViewHolder>() {
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(tracks[position])
     }
@@ -25,8 +29,11 @@ class MusicRecyclerAdapter(private val tracks: ArrayList<Track>,
 
 }
 
-class ViewHolder(view: View?, var vhListener: ViewHolderListener, override val containerView: View?) :
-        RecyclerView.ViewHolder(view), View.OnClickListener, LayoutContainer {
+class ViewHolder(
+        view: View?,
+        private var vhListener: ViewHolderListener,
+        override val containerView: View?
+) : RecyclerView.ViewHolder(view), View.OnClickListener, LayoutContainer {
 
     fun bind(track: Track) {
         music_title.text = track.title

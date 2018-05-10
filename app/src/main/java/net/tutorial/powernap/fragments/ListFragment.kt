@@ -21,12 +21,14 @@ import net.tutorial.powernap.utils.Track
 class ListFragment : Fragment(), ViewHolderListener {
     private val TAG = "ListFragment";
 
-    val tracks = ArrayList<Track>()
+    private val tracks = ArrayList<Track>()
     private lateinit var callbackFragment: FragmentListener
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_list, container, false)
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ) : View? = inflater.inflate(R.layout.fragment_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +56,7 @@ class ListFragment : Fragment(), ViewHolderListener {
         }
     }
 
-    fun initTrackList() {
+    private fun initTrackList() {
         tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
         tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
     }

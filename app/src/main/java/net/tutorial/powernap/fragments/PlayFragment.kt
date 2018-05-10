@@ -24,14 +24,18 @@ import java.util.*
 class PlayFragment : Fragment() {
 
     private val TAG = "PlayFragment";
-    var player = MediaPlayer()
-    var seekBarUpdateHandler = Handler()
+    private var player = MediaPlayer()
+    private var seekBarUpdateHandler = Handler()
 
     lateinit var updateSeekBar: Runnable
     lateinit var callbackFragment: FragmentListener
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ) : View? {
+
         val view = inflater.inflate(R.layout.fragment_play, container, false)
         val args = arguments
         val position = args?.getInt("position")
@@ -47,7 +51,7 @@ class PlayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initLocalViews(view)
+        initLocalViews()
     }
 
     override fun onAttach(context: Context?) {
@@ -64,7 +68,7 @@ class PlayFragment : Fragment() {
         player.stop()
     }
 
-    private fun initLocalViews(view: View) {
+    private fun initLocalViews() {
         arrow_down.setOnClickListener({callbackFragment.fragmentCallback("PlayFragment Button Clicked")})
         play_pause_view.setOnClickListener({
             if (play_pause_view.isPlay) {
