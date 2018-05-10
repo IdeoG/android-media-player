@@ -1,44 +1,37 @@
 package net.tutorial.powernap.utils
 
-import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import net.tutorial.powernap.R
 import net.tutorial.powernap.interfaces.ViewHolderListener
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_music.*
 
 
-class MusicRecyclerAdapter(private val items: ArrayList<Track>,
+class MusicRecyclerAdapter(private val tracks: ArrayList<Track>,
                            private val vhListener: ViewHolderListener): RecyclerView.Adapter<ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.i("onBindViewHolder", "position = $position, items.size = ${items.size}, text = ${items[position]}")
-        holder.title?.text = items[position].title
-        holder.subtitle?.text = items[position].subtitle
+        holder.bind(tracks[position])
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = tracks.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
-        val vh = ViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.music_item,
-                        parent,
-                        false),
-                vhListener)
-        vh.bind()
-        return vh
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_music, parent, false)
+        return ViewHolder(view, vhListener, view)
     }
+
 }
 
-class ViewHolder(view: View?, var vhListener: ViewHolderListener) : RecyclerView.ViewHolder(view), View.OnClickListener {
-    val title = view?.findViewById<TextView>(R.id.music_title)
-    val subtitle = view?.findViewById<TextView>(R.id.music_subtitle)
-    val layout = view?.findViewById<ConstraintLayout>(R.id.layout_item)
+class ViewHolder(view: View?, var vhListener: ViewHolderListener, override val containerView: View?) :
+        RecyclerView.ViewHolder(view), View.OnClickListener, LayoutContainer {
 
-    fun bind() {
-        layout?.setOnClickListener(this)
+    fun bind(track: Track) {
+        music_title.text = track.title
+        music_subtitle.text = track.subtitle
+        layout_item.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {

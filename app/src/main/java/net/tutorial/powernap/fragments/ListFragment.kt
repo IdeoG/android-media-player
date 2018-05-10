@@ -23,22 +23,17 @@ class ListFragment : Fragment(), ViewHolderListener {
 
     val tracks = ArrayList<Track>()
     private lateinit var callbackFragment: FragmentListener
-    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
-        recyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this.context)
+                              savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_list, container, false)
 
-        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
-        tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val adapter = MusicRecyclerAdapter(tracks, this);
-        recyclerView.adapter = adapter
-
-        return view
+        initTrackList()
+        recycler_view.layoutManager = LinearLayoutManager(this.context)
+        recycler_view.adapter = MusicRecyclerAdapter(tracks, this);
     }
 
     override fun onAttach(context: Context?) {
@@ -57,5 +52,10 @@ class ListFragment : Fragment(), ViewHolderListener {
                     position
             )
         }
+    }
+
+    fun initTrackList() {
+        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
+        tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
     }
 }
