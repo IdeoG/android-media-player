@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:background="#ffd54f" />
 
     <Button
@@ -18,6 +18,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:foreground="@drawable/ic_ripple_small"
         android:background="@drawable/ic_arrow_down"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/amita"
         android:text="@string/music_fragment"
         android:textAlignment="center"
@@ -66,7 +67,7 @@
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?android:selectableItemBackground"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
         app:fill_color="#ffff81"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +80,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="13dp"
-        android:background="@drawable/ic_back"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:foreground="@drawable/ic_back"
         app:layout_constraintEnd_toStartOf="@+id/play_pause_view"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +92,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="13dp"
-        android:background="@drawable/ic_next"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:foreground="@drawable/ic_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toEndOf="@+id/play_pause_view"
@@ -101,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:text="00:00"
+        android:text="@string/_00_00"
         app:layout_constraintEnd_toStartOf="@+id/button"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
@@ -110,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:text="00:00"
+        android:text="@string/_00_00"
         app:layout_constraintStart_toEndOf="@+id/button2"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
