@@ -16,11 +16,12 @@ import net.tutorial.powernap.R
 import net.tutorial.powernap.interfaces.FragmentListener
 import net.tutorial.powernap.interfaces.ViewHolderListener
 import net.tutorial.powernap.utils.MusicRecyclerAdapter
+import net.tutorial.powernap.utils.Track
 
 class ListFragment : Fragment(), ViewHolderListener {
     private val TAG = "ListFragment";
 
-    val music = ArrayList<String>()
+    val tracks = ArrayList<Track>()
     private lateinit var callbackFragment: FragmentListener
     private lateinit var recyclerView: RecyclerView
 
@@ -31,10 +32,10 @@ class ListFragment : Fragment(), ViewHolderListener {
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
 
-        music.add("Alpha")
-        music.add("Beta")
+        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
+        tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
 
-        val adapter = MusicRecyclerAdapter(music, this);
+        val adapter = MusicRecyclerAdapter(tracks, this);
         recyclerView.adapter = adapter
 
         return view

@@ -11,11 +11,12 @@ import net.tutorial.powernap.R
 import net.tutorial.powernap.interfaces.ViewHolderListener
 
 
-class MusicRecyclerAdapter(private val items: ArrayList<String>,
+class MusicRecyclerAdapter(private val items: ArrayList<Track>,
                            private val vhListener: ViewHolderListener): RecyclerView.Adapter<ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.i("onBindViewHolder", "position = $position, items.size = ${items.size}, text = ${items[position]}")
-        holder.title?.text = items[position]
+        holder.title?.text = items[position].title
+        holder.subtitle?.text = items[position].subtitle
     }
 
     override fun getItemCount(): Int = items.size
@@ -33,6 +34,7 @@ class MusicRecyclerAdapter(private val items: ArrayList<String>,
 
 class ViewHolder(view: View?, var vhListener: ViewHolderListener) : RecyclerView.ViewHolder(view), View.OnClickListener {
     val title = view?.findViewById<TextView>(R.id.music_title)
+    val subtitle = view?.findViewById<TextView>(R.id.music_subtitle)
     val layout = view?.findViewById<ConstraintLayout>(R.id.layout_item)
 
     fun bind() {
