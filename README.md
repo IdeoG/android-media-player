@@ -27,3 +27,4 @@ Media Player with animations between fragments written on Kotlin
 - [x] Добавить Toolbar для Activity
 - [ ] Переопределить физическую кнопку назад для перехода между Fragments
 - [x] Обновить иконку для приложения
+- [ ] Добавить функционал поиска по названию
