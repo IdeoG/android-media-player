@@ -4,6 +4,13 @@
 
 Media Player with animations between fragments written on Kotlin
 
+### Preview
+
+![](images/img1.png)
+![](images/img2.png)
+
+![](images/img3.png)
+
 ### TODO
 
 - [ ] Циклическая прокуртка повторящихся треков с целью уменьшения размера файлов
