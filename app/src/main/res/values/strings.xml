@@ -6,4 +6,5 @@
     <string name="music_fragment">Music Fragment</string>
     <string name="list_fragment">List Fragment</string>
     <string name="_00_00">00:00</string>
+    <string name="find_by_name">Поиск по названию</string>
 </resources>
