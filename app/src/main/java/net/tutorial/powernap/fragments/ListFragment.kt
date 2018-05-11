@@ -57,22 +57,18 @@ class ListFragment : Fragment(), ViewHolderListener {
     }
 
     private fun initTrackList() {
-        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
+        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\n" +
+                "в креативное состояние (13Гц)"))
         tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
-
-        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
-        tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
-
-        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
-        tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
-
-        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
-        tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
-
-        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
-        tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
-
-        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
-        tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
+        tracks.add(Track("Mental refresher alpha", "Быстрый способ resresh yourself mentally.\n" +
+                "Переносит мозговую активность из бета-1\n" +
+                "в альфа"))
+        tracks.add(Track("Mental refresher beta", "Быстрый способ refresh yourself mentally.\n" +
+                "Переносит мозговую активность к 10 Гц\n" +
+                "и возвращается к 15 Гц"))
+        tracks.add(Track("Relaxation", "Помогает расслабиться вовремя бета-активности.\n" +
+                "Переводит из активности 15 Гц в 12 Гц\n" +
+                "и под конец возвращается обратно в 15 Гц"))
+        tracks.add(Track("Sleep induction", "Тихонько понижает мозговую активность до 3 Гц"))
     }
 }

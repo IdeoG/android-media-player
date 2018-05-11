@@ -1,7 +1,6 @@
 package net.tutorial.powernap.fragments
 
 
-import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
@@ -11,20 +10,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.SeekBar
-import android.widget.TextView
-import com.ohoussein.playpause.PlayPauseView
 import kotlinx.android.synthetic.main.fragment_play.*
 import net.tutorial.powernap.R
-import net.tutorial.powernap.interfaces.FragmentListener
 import java.util.*
 
 
 class PlayFragment : Fragment() {
 
+    private val TAG = "PlayFragment";
     private var player = MediaPlayer()
     private var seekBarUpdateHandler = Handler()
+    private var position = 0
 
     lateinit var updateSeekBar: Runnable
 
@@ -36,20 +33,14 @@ class PlayFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_play, container, false)
         val args = arguments
-        val position = args?.getInt("position")
+        position = args?.getInt("position")!!
 
-        when (position) {
-            0 -> player = MediaPlayer.create(activity, R.raw.alpha)
-            1 -> player = MediaPlayer.create(activity, R.raw.beta)
-        }
-        player.start()
-        player.pause()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initLocalViews()
+        createLocalViews()
     }
 
     override fun onDestroy() {
@@ -57,7 +48,36 @@ class PlayFragment : Fragment() {
         player.stop()
     }
 
-    private fun initLocalViews() {
+    private fun createLocalViews() {
+        createMediaPlayer()
+
+        updateSeekBar = Runnable {
+            val cal = Calendar.getInstance(Locale.ENGLISH)
+            cal.timeInMillis = player.currentPosition.toLong()
+            player_current_time.text = DateFormat.format("mm:ss", cal).toString()
+
+            seekBar.progress = player.currentPosition
+            seekBarUpdateHandler.postDelayed(updateSeekBar, 50)
+        }
+
+        seekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    player.seekTo(progress)
+                    val cal = Calendar.getInstance(Locale.ENGLISH)
+                    cal.timeInMillis = player.currentPosition.toLong()
+                    player_current_time.text = DateFormat.format("mm:ss", cal).toString()
+                }
+            }
+
+        })
+
         play_pause_view.setOnClickListener({
             if (play_pause_view.isPlay) {
                 seekBarUpdateHandler.postDelayed(updateSeekBar, 0);
@@ -70,35 +90,47 @@ class PlayFragment : Fragment() {
             play_pause_view.toggle()
         })
 
-        seekBar.max = player.duration
-        seekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+        music_back.setOnClickListener({
+            if (position > 0 ) {
+                position--
+                createMediaPlayer()
             }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    player.seekTo(progress)
-                    val cal = Calendar.getInstance(Locale.ENGLISH)
-                    cal.setTimeInMillis(player.currentPosition.toLong())
-                    player_current_time.text = DateFormat.format("mm:ss", cal).toString()
-                }
-            }
-
         })
-        updateSeekBar = Runnable {
-            val cal = Calendar.getInstance(Locale.ENGLISH)
-            cal.setTimeInMillis(player.currentPosition.toLong())
-            player_current_time.text = DateFormat.format("mm:ss", cal).toString()
 
-            seekBar.setProgress(player.currentPosition)
-            seekBarUpdateHandler.postDelayed(updateSeekBar, 50)
+        music_next.setOnClickListener({
+            if (position < 7) {
+                position++
+                createMediaPlayer()
+            }
+        })
+    }
+
+    private fun createMediaPlayer() {
+        val resId = when (position) {
+            0 -> R.raw.alpha
+            1 -> R.raw.beta
+            2 -> R.raw.creativity_increase
+            3 -> R.raw.mental_refresher_alpha
+            4 -> R.raw.mental_refresher_beta
+            5 -> R.raw.relaxation_2
+            6 -> R.raw.sleep_induction
+            else -> R.raw.alpha
         }
+        player = MediaPlayer.create(activity, resId)
+        player.start()
+        player.pause()
+
+        seekBar.max = player.duration
 
         val cal = Calendar.getInstance(Locale.ENGLISH)
-        cal.setTimeInMillis(player.duration.toLong())
+        cal.timeInMillis = player.duration.toLong()
         player_duration.text = DateFormat.format("mm:ss", cal).toString()
+        player_current_time.text = "00:00"
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.i(TAG, "onDestroyView: ");
+        seekBarUpdateHandler.removeCallbacks((updateSeekBar))
     }
 }

@@ -11,7 +11,7 @@
         android:id="@+id/imageView2"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/mindwork"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
         app:play_bg="#ff9800" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/music_back"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="13dp"
@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/music_next"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="13dp"
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:text="@string/_00_00"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/music_back"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
     <TextView
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="@string/_00_00"
-        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/music_next"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
 </android.support.constraint.ConstraintLayout>
