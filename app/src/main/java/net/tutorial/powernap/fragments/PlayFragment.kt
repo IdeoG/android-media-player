@@ -23,12 +23,10 @@ import java.util.*
 
 class PlayFragment : Fragment() {
 
-    private val TAG = "PlayFragment";
     private var player = MediaPlayer()
     private var seekBarUpdateHandler = Handler()
 
     lateinit var updateSeekBar: Runnable
-    lateinit var callbackFragment: FragmentListener
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -54,22 +52,12 @@ class PlayFragment : Fragment() {
         initLocalViews()
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if(context is FragmentListener){
-            callbackFragment = context
-            Log.i(TAG, "onAttach: FragmentListener has triggered");
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
-        Log.i(TAG, "onDestroy: ");
         player.stop()
     }
 
     private fun initLocalViews() {
-        arrow_down.setOnClickListener({callbackFragment.fragmentCallback("PlayFragment Button Clicked")})
         play_pause_view.setOnClickListener({
             if (play_pause_view.isPlay) {
                 seekBarUpdateHandler.postDelayed(updateSeekBar, 0);
@@ -93,6 +81,9 @@ class PlayFragment : Fragment() {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     player.seekTo(progress)
+                    val cal = Calendar.getInstance(Locale.ENGLISH)
+                    cal.setTimeInMillis(player.currentPosition.toLong())
+                    player_current_time.text = DateFormat.format("mm:ss", cal).toString()
                 }
             }
 

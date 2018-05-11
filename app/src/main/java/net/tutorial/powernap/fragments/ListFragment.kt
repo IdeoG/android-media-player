@@ -59,5 +59,20 @@ class ListFragment : Fragment(), ViewHolderListener {
     private fun initTrackList() {
         tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
         tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
+
+        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
+        tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
+
+        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
+        tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
+
+        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
+        tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
+
+        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
+        tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
+
+        tracks.add(Track("Increase Creativity", "Выход из спящего состояния (7Гц)\nв креативное состояние (13Гц)"))
+        tracks.add(Track("Meditation", "Поддержание спокойного состояния (7Гц)"))
     }
 }

@@ -17,6 +17,6 @@ Media Player with animations between fragments written on Kotlin
 - [x] Переделать концепт ListFragment
 - [ ] К каждому треку подобрать картинку
 - [x] К каждому треку подобрать название/описание
-- [ ] Добавить Toolbar для Fragments
+- [x] Добавить Toolbar для Activity
 - [ ] Переопределить физическую кнопку назад для перехода между Fragments
 - [x] Обновить иконку для приложения
